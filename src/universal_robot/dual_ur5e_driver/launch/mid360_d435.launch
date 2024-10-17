@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+        <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
+          <arg name="serial_no"             value=""/>
+          <!-- <arg name="tf_prefix"         		value="top"/> -->
+          <arg name="publish_tf"         		value="false"/>
+          <arg name="camera"         		value="top_camera_realsense"/>
+          <arg name="enable_pointcloud"         		value="true"/>
+          
+          <!-- <arg name="use_nominal_extrinsics"         value="true"/> -->
+          <!-- <arg name="reconnect_timeout"     value="$(arg reconnect_timeout)"/> -->
+        </include>
+
+
+    
+<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find dual_ur5e_driver)/config/view_robot.rviz" required="true" /> -->
+</launch>

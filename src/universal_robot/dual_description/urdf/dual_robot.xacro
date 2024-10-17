@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="dual_robot">
+
+    <link name="world"/>
+    <!-- <joint name="fixed" type="fixed"> 
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0.0 0.0 0.0" />
+    </joint> -->
+    
+    <!-- add desk  -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/desk_urdf.xacro"/>
+    <xacro:desk_urdf
+       parent_link="world"
+    />
+
+    <!-- add body  -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/body_urdf.xacro"/>
+    <xacro:body_urdf
+       parent_link="desk_mount_link"
+       top_p="0.25"
+       top_camera_p="0.65"
+    />
+    
+     <!-- add case -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/body_case_urdf.xacro"/>
+    <xacro:body_case_urdf
+        parent_link="desk_mount_link"/>
+
+    <!-- import UR5e macro -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/ur5e_macro.xacro"/>
+    <!-- Import Rviz colors -->
+    <xacro:include filename="$(find dual_description)/urdf/materials.xacro" />
+
+    <!-- parameters -->
+    <xacro:arg name="joint_limit_params" default="$(find dual_description)/config/joint_limits.yaml"/>
+    <xacro:arg name="kinematics_params" default="$(find dual_description)/config/default_kinematics.yaml"/>
+    <xacro:arg name="physical_params" default="$(find dual_description)/config/physical_parameters.yaml"/>
+    <xacro:arg name="visual_params" default="$(find dual_description)/config/visual_parameters.yaml"/>
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+    <xacro:arg name="safety_limits" default="false"/>
+    <xacro:arg name="safety_pos_margin" default="0.15"/>
+    <xacro:arg name="safety_k_position" default="20"/>
+
+    <!-- arm left -->
+    <xacro:ur5e_robot
+    prefix="left_"
+    joint_limits_parameters_file="$(arg joint_limit_params)"
+    kinematics_parameters_file="$(arg kinematics_params)"
+    physical_parameters_file="$(arg physical_params)"
+    visual_parameters_file="$(arg visual_params)"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+    safety_limits="$(arg safety_limits)"
+    safety_pos_margin="$(arg safety_pos_margin)"
+    safety_k_position="$(arg safety_k_position)"/>
+
+    <joint name="left_fixed" type="fixed">
+        <parent link="base_left_virtual_link"/>
+        <child link="left_base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 3.141592653" />
+    </joint>
+
+    <!-- arm right -->
+    <xacro:ur5e_robot
+        prefix="right_"
+        joint_limits_parameters_file="$(arg joint_limit_params)"
+        kinematics_parameters_file="$(arg kinematics_params)"
+        physical_parameters_file="$(arg physical_params)"
+        visual_parameters_file="$(arg visual_params)"
+        transmission_hw_interface="$(arg transmission_hw_interface)"
+        safety_limits="$(arg safety_limits)"
+        safety_pos_margin="$(arg safety_pos_margin)"
+        safety_k_position="$(arg safety_k_position)"/>
+    
+    <joint name="right_fixed" type="fixed">
+        <parent link="base_right_virtual_link"/>
+        <child link="right_base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 1.57 " />
+    </joint>
+    
+  <!-- cameras -->
+  <!-- Realsense Camera Primary and Secondary -->
+  <!-- TOP D435i -->
+  <!-- <link name="top_camera_realsense_depth_optical_frame" />
+   
+    <joint name="top_camera_realsense_depth_frame_joint" type="fixed" >
+      <parent link="left_base" />
+      <child link="top_camera_realsense_depth_optical_frame" />
+      <origin xyz="-0.382 -0.233 -0.084" rpy="1.57 0.261 1.565" />
+    </joint> -->
+    
+
+      <!--  -->
+
+    <!-- <link name="top_camera_realsense_depth_optical_frame" />
+   
+    <joint name="top_camera_realsense_depth_frame_joint" type="fixed" >
+      <parent link="left_base" />
+      <child link="top_camera_realsense_depth_optical_frame" />
+      <origin xyz="0.206 -0.147 -0.378" rpy=" 0 1.57 0" />
+    </joint> -->
+    
+
+  <xacro:arg name="realsense_enabled"             default="$(optenv DUAL_REALSENSE_ENABLED 1)" />
+  <xacro:arg name="realsense_model"               default="$(optenv DUAL_REALSENSE_MODEL d435i)"/>
+  <xacro:arg name="realsense_topic"               default="$(optenv DUAL_REALSENSE_TOPIC top_camera)" />
+  <xacro:arg name="realsense_prefix"              default="$(optenv DUAL_REALSENSE_PREFIX top_camera)" />
+  <xacro:arg name="realsense_parent"              default="$(optenv DUAL_REALSENSE_PARENT top_camera_virtual_link)" />
+  <xacro:arg name="realsense_xyz"                 default="$(optenv DUAL_REALSENSE_XYZ 0.007 0 -0.012)" />
+  <xacro:arg name="realsense_rpy"                 default="$(optenv DUAL_REALSENSE_RPY 0 0.16 0 )" />
+  <xacro:property name="realsense_model"          value="$(arg realsense_model)"/>
+  <!-- LEFT D435i -->
+  <xacro:arg name="realsense_secondary_enabled"   default="$(optenv DUAL_REALSENSE_SECONDARY_ENABLED 1)" />
+  <xacro:arg name="realsense_secondary_model"     default="$(optenv DUAL_REALSENSE_SECONDARY_MODEL d435i)"/>
+  <xacro:arg name="realsense_secondary_topic"     default="$(optenv DUAL_REALSENSE_SECONDARY_TOPIC left_realsense)" />
+  <xacro:arg name="realsense_secondary_prefix"    default="$(optenv DUAL_REALSENSE_SECONDARY_PREFIX left_camera)" />
+  <xacro:arg name="realsense_secondary_parent"    default="$(optenv DUAL_REALSENSE_SECONDARY_PARENT left_tool0)" />
+  <xacro:arg name="realsense_secondary_xyz"       default="$(optenv DUAL_REALSENSE_SECONDARY_XYZ 0 -0.1 0.011)" />
+  <xacro:arg name="realsense_secondary_rpy"       default="$(optenv DUAL_REALSENSE_SECONDARY_RPY 0 -1.57 1.57)" />
+  <xacro:property name="realsense_secondary_model" value="$(arg realsense_secondary_model)"/>
+  <!-- RIGHT D435i -->
+  <xacro:arg name="realsense_tertiary_enabled"   default="$(optenv DUAL_REALSENSE_TERTIARY_ENABLED 1)" />
+  <xacro:arg name="realsense_tertiary_model"     default="$(optenv DUAL_REALSENSE_TERTIARY_MODEL d435i)"/>
+  <xacro:arg name="realsense_tertiary_topic"     default="$(optenv DUAL_REALSENSE_TERTIARY_TOPIC right_realsense)" />
+  <xacro:arg name="realsense_tertiary_prefix"    default="$(optenv DUAL_REALSENSE_TERTIARY_PREFIX right_camera)" />
+  <xacro:arg name="realsense_tertiary_parent"    default="$(optenv DUAL_REALSENSE_TERTIARY_PARENT right_tool0)" />
+  <xacro:arg name="realsense_tertiary_xyz"       default="$(optenv DUAL_REALSENSE_TERTIARY_XYZ 0 -0.055 0.011)" />
+  <xacro:arg name="realsense_tertiary_rpy"       default="$(optenv DUAL_REALSENSE_TERTIARY_RPY 0 -1.57 1.57)" />
+  <xacro:property name="realsense_tertiary_model" value="$(arg realsense_tertiary_model)"/>
+  
+  <xacro:include filename="$(find dual_description)/urdf/inc/intel_realsense.urdf.xacro"/>
+  <xacro:arg name="use_nominal_extrinsics" default="true"/>
+    <!-- Intel Realsense Primary and Secondary -->
+  <xacro:property name="realsense_enabled" value="$(arg realsense_enabled)"/>
+  <xacro:property name="realsense_secondary_enabled" value="$(arg realsense_secondary_enabled)"/>
+  <xacro:property name="realsense_tertiary_enabled" value="$(arg realsense_tertiary_enabled)"/>
+  <xacro:if value="${realsense_enabled or realsense_secondary_enabled or realsense_tertiary_enabled}">
+      <xacro:if value="${realsense_model == 'd435'}">
+        <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+      </xacro:if>
+      <xacro:if value="${realsense_model == 'd435i'}">
+        <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
+      </xacro:if>
+      <xacro:if value="${realsense_model == 'd415'}">
+        <xacro:include filename="$(find realsense2_description)/urdf/_d415.urdf.xacro" />
+      </xacro:if>
+      <xacro:if value="${realsense_model == 'd455'}">
+        <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+      </xacro:if>
+  </xacro:if>
+  <!-- TOP camera -->
+  <xacro:if value="$(arg realsense_enabled)">
+    <xacro:realsense_sensor rs_model="$(arg realsense_model)"
+                            prefix="$(arg realsense_prefix)"
+                            parent="$(arg realsense_parent)"
+                            topic="$(arg realsense_topic)"
+                            include="0"
+                            use_nominal_extrinsics="true">
+      <origin xyz="$(arg realsense_xyz)" rpy="$(arg realsense_rpy)"/>
+    </xacro:realsense_sensor>
+  </xacro:if>
+  <!-- LEFT camera -->
+  <xacro:if value="$(arg realsense_secondary_enabled)">
+    <xacro:realsense_sensor rs_model="$(arg realsense_secondary_model)"
+                            prefix="$(arg realsense_secondary_prefix)"
+                            parent="$(arg realsense_secondary_parent)"
+                            topic="$(arg realsense_secondary_topic)"
+                            include="0"
+                            use_nominal_extrinsics="true">
+      <origin xyz="$(arg realsense_secondary_xyz)" rpy="$(arg realsense_secondary_rpy)"/>
+    </xacro:realsense_sensor>
+  </xacro:if>
+  <!-- RIGHT camera -->
+  <xacro:if value="$(arg realsense_tertiary_enabled)">
+    <xacro:realsense_sensor rs_model="$(arg realsense_tertiary_model)"
+                            prefix="$(arg realsense_tertiary_prefix)"
+                            parent="$(arg realsense_tertiary_parent)"
+                            topic="$(arg realsense_tertiary_topic)"
+                            include="0"
+                            use_nominal_extrinsics="true">
+      <origin xyz="$(arg realsense_tertiary_xyz)" rpy="$(arg realsense_tertiary_rpy)"/>
+    </xacro:realsense_sensor>
+  </xacro:if>
+
+
+  <!-- TOP mid360 -->
+  <xacro:arg name="mid360_enable" default="true"/>
+  <xacro:if value="$(arg mid360_enable)">
+  <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_mid360_imu.xacro"/>
+
+  <xacro:mid360_imu />
+   <!-- virtual joint -->
+   <joint name="top_mid_joint" type="fixed" >
+    <parent link="top_mid_virtual_link" />
+    <child link="livox_base" />
+    <origin xyz="0 0 0.0" rpy="1.57 1.57 3.14" />
+  </joint>
+</xacro:if>
+
+
+    <!-- add grippers  -->
+    <!-- <xacro:include filename="$(find dual_description)/urdf/robotiq_arg2f_85.xacro" />
+    <xacro:robotiq_arg2f_85 gripper_name="right_robotiq_gripper" parent="right_tool0"  rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <xacro:robotiq_arg2f_85 gripper_name="left_robotiq_gripper" parent="left_tool0"    rpy="1.57 0.0 0.0" xyz="0.0 0.0 0.0" /> -->
+
+    <!-- add seed RH8D -->
+    <!-- <xacro:include filename="$(find dual_description)/urdf/RH8DR.xacro"/>
+    <xacro:rh8d />
+    <joint name="seed_base_joint" type="fixed" >
+        <parent link="right_tool0" />
+        <child link="seed_base_link" />
+        <origin xyz="0 0 0.0001" rpy="0 0 0" />
+    </joint> -->
+
+    <!-- add camera1  tf -->
+    <!-- <joint name="camera_color_optical_frame1" type="fixed">
+        <parent link="left_tool0"/>
+        <child link="camera_color_optical_frame1"/>
+        <origin xyz="-0.018828218789985474  -0.06810655607848229  -0.00038232731010605977" rpy="0.1861171  -0.004585  0.020755 " />
+    </joint> -->
+    
+    <!-- add camera 2 -->
+    
+    <!-- <joint name="top_camera_realsense_color_optical_frame_joint" type="fixed">
+        <parent link="left_base"/>
+        <child link="top_camera_realsense_color_optical_frame"/>
+        <origin xyz="0.2213 -0.1512 -0.3761" rpy="-1.058 1.548 0.783" />
+    </joint> 
+     <link name="top_camera_realsense_color_optical_frame"></link> -->
+    
+    <!-- add camera 3 -->
+    <link name="right_camera_color_optical_calibration_frame"></link>
+    <joint name="right_camera_camera_color_optical_frame_joint" type="fixed">
+        <parent link="right_tool0"/>
+        <child link="right_camera_color_optical_calibration_frame"/>
+        <origin xyz="-0.030 -0.072 0.002" rpy="-0.001 -0.017 0.014" />
+    </joint> 
+    <!-- add camera4 -->
+<link name="left_camera_color_optical_calibration_frame"></link>
+    <joint name="left_camera_camera_color_optical_frame_joint" type="fixed">
+        <parent link="left_tool0"/>
+        <child link="left_camera_color_optical_calibration_frame"/>
+        <origin xyz="-0.024 -0.158 0.028" rpy="-0.004 -0.04 0.004" />
+    </joint> 
+<!-- add 3f-flange -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/fff_flange_urdf.xacro"/>
+    <xacro:fff_flange_urdf
+        parent_link="left_flange"/>
+   <!-- add 2f-flange -->
+    <xacro:include filename="$(find dual_description)/urdf/inc/ff_flange_urdf.xacro"/>
+    <xacro:ff_flange_urdf
+        parent_link="right_flange"/>
+    
+</robot>

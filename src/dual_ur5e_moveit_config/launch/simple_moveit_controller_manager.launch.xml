@@ -1,0 +1,16 @@
+<launch>
+  <!-- Define the MoveIt controller manager plugin to use for trajectory execution -->
+  <param name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
+  
+  <param name="sim" value="false" />
+  
+  <!-- Load controller list to the parameter server -->
+  <group if="$(arg sim)">
+    <rosparam file="$(find dual_ur5e_moveit_config)/config/simple_moveit_gazebo_controllers.yaml" />
+  </group>
+  <group unless="$(arg sim)">
+    <rosparam file="$(find dual_ur5e_moveit_config)/config/simple_moveit_controllers.yaml" />
+  </group>
+  <!-- <rosparam file="$(find dual_ur5e_moveit_config)/config/simple_moveit_controllers.yaml" /> -->
+  <!-- <rosparam file="$(find dual_ur5e_moveit_config)/config/ros_controllers.yaml" /> -->
+</launch>

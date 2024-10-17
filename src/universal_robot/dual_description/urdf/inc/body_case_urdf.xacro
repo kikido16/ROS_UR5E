@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<xacro:macro name="body_case_urdf"
+ params="
+    parent_link:= base_mount_link
+ ">
+ <joint name="body_case_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="-0.380 0.000 0.814"
+      rpy="1.57 0 1.57" />
+    <parent
+      link="world" />
+    <child
+      link="body_case_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+   <link
+    name="body_case_link">
+    <inertial>
+      <origin
+        xyz="-3.5614E-06 0.42492 5.7985E-07"
+        rpy="0 0 0" />
+      <mass
+        value="3.7821" />
+      <inertia
+        ixx="0.23348"
+        ixy="3.0095E-06"
+        ixz="2.6836E-07"
+        iyy="0.048195"
+        iyz="-1.9639E-07"
+        izz="0.272" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/body_case_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/body_case_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+</xacro:macro>
+</robot>

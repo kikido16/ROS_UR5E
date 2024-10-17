@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<xacro:macro name="fff_flange_urdf"
+ params="
+    parent_link:= left_flange
+ ">
+ <joint name="fff_flange_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.029"
+      rpy="0 -1.57 1.57" />
+    <parent
+      link="left_tool0" />
+    <child
+      link="fff_flange_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+   <link
+    name="fff_flange_link">
+    <inertial>
+      <origin
+        xyz="-0.0144698370832395 -5.79903338042805E-06 0.00759266370055516"
+        rpy="0 0 0" />
+      <mass
+        value="0.0687990166861809" />
+      <inertia
+        ixx="7.10664271955247E-05"
+        ixy="1.88874394989345E-09"
+        ixz="-3.16942847497123E-11"
+        iyy="4.99271169829456E-05"
+        iyz="-1.15628272637787E-11"
+        izz="2.42243225462604E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/camera_support/fff_flange_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/camera_support/fff_flange_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+</xacro:macro>
+</robot>

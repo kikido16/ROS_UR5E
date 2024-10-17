@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/noetic/dual_ur5e_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/noetic/dual_ur5e_ws/src/Universal_Robots_ROS_Driver/ur_calibration/include/**",
+        "/home/noetic/dual_ur5e_ws/src/universal_robot/ur_kinematics/include/**",
+        "/home/noetic/dual_ur5e_ws/src/Universal_Robots_ROS_Driver/ur_robot_driver/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

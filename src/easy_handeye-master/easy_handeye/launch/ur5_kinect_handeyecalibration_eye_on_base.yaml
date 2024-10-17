@@ -1,0 +1,22 @@
+parameters:
+  eye_on_hand: false
+  freehand_robot_movement: true
+  move_group: manipulator
+  move_group_namespace: /
+  namespace: /ur5_kinect_handeyecalibration_eye_on_base/
+  robot_base_frame: base_link
+  robot_effector_frame: tool0
+  tracking_base_frame: camera_color_optical_frame
+  tracking_marker_frame: marker_582
+transformation:
+  qw: 0.7165197534965725
+  qx: 0.37778926364780396
+  qy: 0.10387636456128979
+  qz: -0.5771346602026184
+  x: -0.2621384722071215
+  y: 0.20123966264126292
+  z: -0.35288839424755625
+
+  # -0.2621384722071215  0.20123966264126292  -0.35288839424755625
+
+# [ x: 0.7620083, y: -0.2913145, z: -1.2387426 ]

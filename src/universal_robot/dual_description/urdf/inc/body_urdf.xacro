@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<xacro:macro name="body_urdf"
+ params="
+    parent_link:=desk_mount_link
+    top_p:=0
+    top_camera_p:=0
+ ">
+
+ <!-- word-link virtual  -->
+  <!-- <link  name="world"/> -->
+  <joint name="body_base_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0 " />
+    <parent
+      link="${parent_link}" />
+    <child
+      link="body_base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+ 
+ 
+  <link name="body_base_link">
+    <inertial>
+      <origin
+        xyz="0.00584259577469448 -4.04386794715782E-08 0.558193747400135"
+        rpy="0 0 0" />
+      <mass
+        value="2.08668584314991" />
+      <inertia
+        ixx="0.0512261321298791"
+        ixy="5.92998368553023E-08"
+        ixz="-0.000723201881816007"
+        iyy="0.0380361473621072"
+        iyz="-3.14601048029688E-09"
+        izz="0.0177505726695456" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/body_base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.827450980392157 0.117647058823529 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/body_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="base_right_virtual_link">
+  </link>
+  <joint name="base_right_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.174748737341515 0.641109127034685"
+      rpy="3.14159265358979 0.785398163397448 1.5707963267949" />
+    <parent
+      link="body_base_link" />
+    <child
+      link="base_right_virtual_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="base_left_virtual_link">
+  </link>
+  <joint name="base_left_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.1747487373415 0.6411091270347"
+      rpy="-2.35619449019234 0 0" />
+    <parent
+      link="body_base_link" />
+    <child
+      link="base_left_virtual_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <link name="base_top_link">
+    <inertial>
+      <origin
+        xyz="0.108332956333131 0.000502097590396251 -0.00120945092499425"
+        rpy="0 0 0" />
+      <mass
+        value="1.25028431536434" />
+      <inertia
+        ixx="0.0164242467597889"
+        ixy="-2.83203220956064E-07"
+        ixz="-0.000301478836533527"
+        iyy="0.00761411158725398"
+        iyz="-5.82682403225744E-07"
+        izz="0.00935899938889483" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/base_top_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.827450980392157 0.117647058823529 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/base_top_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <!-- change  top to base_link -->
+  <joint name="base_top_joint"
+    type="fixed">
+    <origin
+      xyz="0.0450000000000174 0 0.918859127034699"
+      rpy="0 ${top_p} 0" />
+    <parent
+      link="body_base_link" />
+    <child
+      link="base_top_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="top_mid_virtual_link">
+  </link>
+  <joint name="top_mid_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0.0831335832259699 0 -0.0902711429138859"
+      rpy="-1.5707963267949 0.349065850398898 0" />
+    <parent
+      link="base_top_link" />
+    <child
+      link="top_mid_virtual_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="top_camera_link">
+    <inertial>
+      <origin
+        xyz="0.0191201663252327 3.1965938699802E-15 -0.0120428973987055"
+        rpy="0 0 0" />
+      <mass
+        value="0.00818486414704422" />
+      <inertia
+        ixx="5.38039839342553E-06"
+        ixy="9.70130285742726E-23"
+        ixz="4.71160702476488E-07"
+        iyy="2.08946621689711E-06"
+        iyz="7.5952468703513E-22"
+        izz="6.33794581580629E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/top_camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/body/top_camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.101149999999983 0 0.154750000000001"
+      rpy="-3.14159265358979 ${top_camera_p} 0" />
+    <parent
+      link="base_top_link" />
+    <child
+      link="top_camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="top_camera_virtual_link">
+  </link>
+  <joint name="top_camera_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0.0327999999999819 0 -0.0149999999999817"
+      rpy="3.14159265358979 0 0" />
+    <parent
+      link="top_camera_link" />
+    <child
+      link="top_camera_virtual_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</xacro:macro>
+</robot>

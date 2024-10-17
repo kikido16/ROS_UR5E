@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <group ns="load_dual__">
+    <include file="$(find dual_description)/launch/load_dual_robot.launch"/>
+  </group>
+
+  <group ns="view_dual__">
+    <include file="$(find dual_description)/launch/view_dual_robot.launch"/>
+  </group>
+</launch>

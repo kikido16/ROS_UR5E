@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: dual_description
+    relative_path: urdf/dual_robot.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/dual_robot.srdf
+  CONFIG:
+    author_name: li
+    author_email: li@123.com
+    generated_timestamp: 1712066236

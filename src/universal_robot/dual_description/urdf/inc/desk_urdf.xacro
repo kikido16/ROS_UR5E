@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+<xacro:macro name="desk_urdf"
+ params="
+    parent_link:=world
+ ">
+
+ <!-- word-link virtual  -->
+  <!-- <link  name="world"/> -->
+  <joint name="desk_base_virtual_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.80"
+      rpy="0 0 0 " />
+    <parent
+      link="${parent_link}" />
+    <child
+      link="desk_base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+ 
+ 
+  <link name="desk_base_link">
+  <inertial>
+    <origin
+      xyz="-0.063008 -0.00052857 -0.46249"
+      rpy="0 0 0" />
+    <mass
+      value="55.905" />
+    <inertia
+      ixx="3.103"
+      ixy="1.3699E-10"
+      ixz="2.067E-07"
+      iyy="5.8604"
+      iyz="-4.3153E-05"
+      izz="8.8128" />
+  </inertial>
+  <visual>
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <geometry>
+      <mesh
+        filename="package://dual_description/meshes/desk/desk_base_link.STL" />
+    </geometry>
+    <material
+      name="">
+      <color
+        rgba="1 1 1 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <geometry>
+      <mesh
+        filename="package://dual_description/meshes/desk/desk_base_link.STL" />
+    </geometry>
+  </collision>
+  </link>
+  <link name="desk_mount_link">
+    <inertial>
+      <origin
+        xyz="7.6091E-06 3.8956E-17 -0.0075038"
+        rpy="0 0 0" />
+      <mass
+        value="5.9136" />
+      <inertia
+        ixx="0.17815"
+        ixy="-1.5368E-17"
+        ixz="2.2481E-07"
+        iyy="0.22281"
+        iyz="-1.3218E-19"
+        izz="0.40074" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/desk/desk_mount_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://dual_description/meshes/desk/desk_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="desk_mount_joint"
+    type="fixed">
+    <origin
+      xyz="-0.380101825806298 0 0.0140000000000009"
+      rpy="0 0 0" />
+    <parent
+      link="desk_base_link" />
+    <child
+      link="desk_mount_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</xacro:macro>
+</robot>

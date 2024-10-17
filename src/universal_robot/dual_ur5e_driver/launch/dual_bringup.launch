@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="left_arm">
+        <include file="$(find ur_robot_driver)/launch/ur5e_bringup.launch">
+            <arg name="robot_ip" value="192.168.1.11" />
+            <arg name="tf_prefix" value="left_"/>
+            <arg name="reverse_port" value="50001" />
+            <arg name="script_sender_port" value="50002"/>
+            <arg name="trajectory_port" value="50003"/>
+            <arg name="script_command_port" value="50004"/>
+            <arg name="controller_config_file" value="$(find dual_ur5e_driver)/config/left_robot_controllers.yaml"/>
+            <arg name="robot_description_file" value="$(find dual_description)/launch/load_dual_robot.launch" />
+            <arg name="kinematics_config" value="$(find dual_description)/config/left_robot_kinematics.yaml"/>
+        </include>
+    </group>
+
+    <group ns="right_arm">
+        <include file="$(find ur_robot_driver)/launch/ur5e_bringup.launch">
+            <arg name="robot_ip" value="192.168.1.12" />
+            <arg name="tf_prefix" value="right_"/>
+            <arg name="reverse_port" value="50005" />
+            <arg name="script_sender_port" value="50006"/>
+            <arg name="trajectory_port" value="50007"/>
+            <arg name="script_command_port" value="50008"/>
+            <arg name="controller_config_file" value="$(find dual_ur5e_driver)/config/right_robot_controllers.yaml"/>
+            <arg name="robot_description_file" value="$(find dual_description)/launch/load_dual_robot.launch" />
+            <arg name="kinematics_config" value="$(find dual_description)/config/right_robot_kinematics.yaml"/>
+        </include>
+    </group>
+
+    <include file="$(find dual_description)/launch/load_dual_robot.launch"/>
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find dual_ur5e_driver)/config/view_robot.rviz" required="true" /> -->
+</launch>
